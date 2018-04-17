@@ -185,6 +185,5 @@ void zadanie6()
 int main(int argc, const char * argv[])
 {
     // type the function name here to build it.
-    zadanie6();
     return 0;
 }
