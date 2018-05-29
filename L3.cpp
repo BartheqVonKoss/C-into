@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <string>
 #include <cctype>
+#include <string.h>
 
 void swap(int *n, int *m);
 void print(int *tab, int no_e);
@@ -60,9 +61,14 @@ int *reverse(int *tab, int no_e)
     return tab;
 }
 
-int sum(int *tab, int no_e)
+int sum(int *tab, int no_e)         // ??
 {
-    int sum = *tab + *(tab+1);
+    int sum = 0;
+    for(int i=0; i < no_e; i++)
+    {
+        sum += *(tab+i);
+        //*tab + *(tab+no_e);
+    }
     return sum;
 }
 
@@ -87,33 +93,22 @@ void error(const char* s)
     exit(-1);
 
 }
-/*
+
 double get_double(const char* s)
 {
-    int i = 0;
-    bool flag = true;
-
-    while(s[i]!='\0' && flag == true)
+    char *d = new char[strlen(s)];
+    for(int i = 0; i < strlen(s); i++)
     {
-        if(!isdigit(s[i]))
-        {
-            error(s);
-            flag = false;
-        }
-
-        i++;
+        d[i] = s[i];
     }
-    double d = std::stod(s);
-    return d;
-}
-*/
-
-double get_double(const char* s)
-{
+    std::cout << strlen(s) << std::endl;
     std::string::size_type ptr;     // Wskaźnik ustawiany na pozycję pierwszego znaku w stringu po liczbie
-    if (isdigit(*s)) return std::stod(s, &ptr);
-    else error(s);
-    return 11;
+    for(int i = 0; i < strlen(s); i++)
+    {
+        if (isdigit(d[i]) || ispunct(d[i])) continue;
+        else error(d);
+    }
+    return std::stod(s, &ptr);
 }
 
 void Zadanie2(int argc, const char* argv[])
@@ -134,12 +129,12 @@ void Zadanie2(int argc, const char* argv[])
     std::cout << "= " << c << "\n";
 }
 
-void allocate(int **&arr, int n)
+void allocate(int ***arr, int n)                // read on the topic of references
 {
-    arr = new int * [n];
+    *arr = new int * [n];
     for(int i = 0; i < n; i++)
     {
-        arr[i] = new int [n];
+        *arr[i] = new int [n];
     }
 }
 
@@ -158,7 +153,7 @@ void Zadanie3()
     std::cin >> n;
     if(!(n>0 && n<=10))
         std::cout << "sth is incorrect" << std::endl;           //return -1;
-    allocate(tab, n);
+    allocate(&tab, n);
     for(int i=0; i<n; i++)
     {
         for(int j=0; j<n; j++)
@@ -171,8 +166,9 @@ void Zadanie3()
 int main(int argc, const char * argv[])
 {
     //Zadanie1();
-    //get_double("2%13");
-    //Zadanie2(argc, argv);
+    //get_double("2e");
+    //
+    Zadanie2(argc, argv);
     //Zadanie3();
     return 0;
 }
