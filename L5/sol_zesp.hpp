@@ -25,7 +25,7 @@ public:
     Complex operator+=(const Complex &in);
     Complex operator*(const Complex &in);
     Complex operator*=(const Complex &in);
-    Complex operator=(const Complex &in);
+    const Complex operator=(const Complex &in);
     double REAL() const;
     double IMAG() const;
 };
