@@ -14,7 +14,7 @@ Complex::Complex() : real(0), imag(0) {}
 
 Complex Complex::operator+(const Complex &in)
 {
-    return Complex(this->real += in.real, this->imag += in.imag);
+    return Complex(this->real + in.real, this->imag + in.imag);
 }
 
 std::ostream &operator<<(std::ostream &F, const Complex &in)
@@ -28,17 +28,22 @@ Complex Complex::operator+=(const Complex &in)
     return Complex(this->real += in.real, this->imag += in.imag);
 }
 
-Complex Complex::operator*(const Complex &in)
+Complex Complex::operator*(const Complex &in) 
 {
-    return Complex(this->real *= in.real, this->imag *= in.imag);
+    double x = this->real;
+    double y = this->imag;
+    Complex mult(x * in.real - y * in.imag, x * in.imag + y * in.real);
+    return mult;
 }
 
 Complex Complex::operator*=(const Complex &in)
 {
-    return Complex(this->real *= in.real, this->imag *= in.imag);
+    double x = this->real;
+    double y = this->imag;
+    return Complex(this->real = x * in.real - y * in.imag, this->imag = x * in.imag + y * in.real);
 }
 
-Complex Complex::operator=(const Complex &in)
+const Complex Complex::operator=(const Complex &in)
 {
     return Complex(this->real = in.real, this->imag = in.imag);
 }
